@@ -3,6 +3,8 @@ import javafx.animation.AnimationTimer;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Random;
 
 public class WeatherDataSimulator {
@@ -13,6 +15,9 @@ public class WeatherDataSimulator {
     private int intervalMinutes;
     private LocalDateTime lastTimestamp;
     private Season currentSeason;
+
+    List<WeatherDataObserver> observers = new LinkedList<>();
+
 
     // Enum für Jahreszeiten bleibt unverändert
     public enum Season {
@@ -43,7 +48,7 @@ public class WeatherDataSimulator {
     }
 
     // Konstruktor bleibt unverändert
-    public WeatherDataSimulator(WeatherVisualizer visualizer, LocalDate startDate, int intervalMinutes) {
+    public WeatherDataSimulator(LocalDate startDate, int intervalMinutes) {
         this.visualizer = visualizer;
         this.random = new Random();
         this.intervalMinutes = intervalMinutes;
@@ -249,4 +254,22 @@ public class WeatherDataSimulator {
                 return random.nextInt(41);
         }
     }
+    // füge Observer hinzu
+    public void addObserver(WeatherDataObserver observer) {
+        observers.add(observer);
+    }
+
+    // Entferne Observer
+    public void removeObserver(WeatherDataObserver observer) {
+        observers.remove(observer);
+    }
+
+    // Benachrichtige alle Observer
+    private void notifyObservers(WeatherData weatherData) {
+        for (WeatherDataObserver observer : observers) {
+            observer.update(weatherData);
+        }
+    }
+
+
 }

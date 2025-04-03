@@ -11,7 +11,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 
-public class WeatherVisualizer {
+public class WeatherVisualizer implements WeatherDataObserver{
     private XYChart.Series<Number, Number> temperatureSeries;
     private LineChart<Number, Number> lineChart;
     private NumberAxis xAxis;
@@ -34,7 +34,7 @@ public class WeatherVisualizer {
         put(WeatherCondition.THUNDERSTORM, "/thunder-icon.png");
     }};
 
-    public WeatherVisualizer() {
+    public WeatherVisualizer(){
         initializeComponents();
     }
 
@@ -109,4 +109,8 @@ public class WeatherVisualizer {
     }
 
 
+    @Override
+    public void update(WeatherData wData) {
+        Platform.runLater(()->updateWeatherVisualization(wData));
+    }
 }
