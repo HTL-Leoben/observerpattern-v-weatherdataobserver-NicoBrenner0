@@ -49,7 +49,6 @@ public class WeatherDataSimulator {
 
     // Konstruktor bleibt unverändert
     public WeatherDataSimulator(LocalDate startDate, int intervalMinutes) {
-        this.visualizer = visualizer;
         this.random = new Random();
         this.intervalMinutes = intervalMinutes;
         this.lastTimestamp = LocalDateTime.of(startDate.getYear(), startDate.getMonth(), startDate.getDayOfMonth(),0,0);
