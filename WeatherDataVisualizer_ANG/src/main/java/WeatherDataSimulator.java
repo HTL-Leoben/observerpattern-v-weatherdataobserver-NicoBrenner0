@@ -9,7 +9,7 @@ import java.util.Random;
 
 public class WeatherDataSimulator {
 
-    private WeatherVisualizer visualizer;
+    private WeatherVisualizer visualizer = new WeatherVisualizer();
     private Random random;
     private double lastTemperature;
     private int intervalMinutes;
@@ -184,6 +184,7 @@ public class WeatherDataSimulator {
                 newCondition,
                 newTimestamp
         );
+        notifyObservers(weatherData);
 
         lastTemperature = newTemperature;
         lastTimestamp = newTimestamp;
